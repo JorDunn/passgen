@@ -3,66 +3,66 @@ import sys
 import getopt
 import random
 
+
 def _generate_password(alpha, numeric, special, pass_len):
-	password = ""
+    password = ""
 
-	while pass_len > 0:
-		i = random.randint(1, 3)
+    while password_length > 0:
+        i = random.randint(1, 3)
 
-		if i == 1 and alpha:
-			z = random.randint(1, 2)
-			if z == 1:
-				a = random.randint(97, 122)
-			else:
-				a = random.randint(65, 90)
-			password += chr(a)
-			pass_len -= 1
-		elif i == 2 and numeric:
-			password = ''.join([password, chr(random.randint(48, 57))])
-			pass_len -= 1
-		elif i == 3 and special:
-			"""Rather than trying to cherry pick only certain ascii codes, just define a list of acceptable special chars."""
-			password = ''.join([password, random.choice('!@#$^&*()_+=-<>/\\')])
-			pass_len -= 1
+        if i == 1 and alpha:
+            case_toggle = random.randint(1, 2)
+            if case_toggle == 1:
+                password = ''.join([password, chr(random.randint(97, 122))])
+            else:
+                password = ''.join([password, chr(random.randint(65, 90))])
+            password_length -= 1
+        elif i == 2 and numeric:
+            password = ''.join([password, chr(random.randint(48, 57))])
+            password_length -= 1
+        elif i == 3 and special:
+            """Rather than trying to cherry pick only certain ascii codes, just define a list of acceptable special chars."""
+            password = ''.join([password, random.choice('!@#$^&*()_+=-<>/\\')])
+            password_length -= 1
 
-	return password
+    return password
 
 if __name__ == '__main__':
-	try:
-		opts, args = getopt.getopt(sys.argv[1:], "a:n:s:l:h", ["alpha=", "numeric=", "special=", "length=", "help"])
-	except getopt.GetoptError as err:
-		print str(err)
-		sys.exit(2)
+    try:
+        opts, args = getopt.getopt(sys.argv[1:], "ansl:h", ["alpha", "numeric", "special", "length=", "help"])
+    except getopt.GetoptError as err:
+        print str(err)
+        sys.exit(2)
 
-	alpha = False
-	numeric = False
-	special = False
+    alpha = False
+    numeric = False
+    special = False
 
-	for opt, val in opts:
-		if opt in ("-a", "--alpha"):
-			alpha = bool(val[1:])
-		elif opt in ("-n", "--numeric"):
-			numeric = bool(val[1:])
-		elif opt in ("-s", "--special"):
-			special = bool(val[1:])
-		elif opt in ("-l", "--length"):
-			pass_len = int(val[1:])
-		else:
-			print "Unhandled option"
+    for opt, val in opts:
+        if opt in ("-a", "--alpha"):
+            alpha = True
+        elif opt in ("-n", "--numeric"):
+            numeric = True
+        elif opt in ("-s", "--special"):
+            special = True
+        elif opt in ("-l", "--length"):
+            password_length = int(val[1:])
+        else:
+            print "Unhandled option"
 
-	try:
-		pass_len
-	except NameError:
-		pass_len = 6
+    try:
+        password_length
+    except NameError:
+        password_length = 10
 
-	if alpha or numeric or special:
-		password = _generate_password(alpha, numeric, special, pass_len)
-	else:
-		msg = (
-			"Usage: passgen [OPTION]... [LENGTH]...\n"
-			"Try `passgen --help' for more options"
-		)
-		print msg
-		exit()
+    if alpha or numeric or special:
+        password = _generate_password(alpha, numeric, special, password_length)
+    else:
+        msg = (
+            "Usage: passgen [OPTION]... [LENGTH]...\n"
+            "Try `passgen --help' for more options"
+        )
+        print msg
+        exit()
 
-	print "A wild password appeared!: {password}".format(password=password)
+    print "A wild password appeared!: {password}".format(password=password)
