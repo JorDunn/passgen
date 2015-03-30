@@ -35,7 +35,7 @@ def generate_password(length, alpha_toggle, numeric_toggle, special_toggle, defi
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="Simple python based password generator")
+    parser = argparse.ArgumentParser(description="Simple python based password generator", epilog="passgen (c) 2014-2015, Jordan Dunn.")
     parser.add_argument('-l', '--length', help="set password length", type=int)
     parser.add_argument('-a', '--alpha', help="enable alphabet characters", action="store_true")
     parser.add_argument('-n', '--numeric', help="enable numeric characters", action="store_true")
