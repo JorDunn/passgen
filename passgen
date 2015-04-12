@@ -7,6 +7,19 @@ import pyperclip
 
 
 def generate_password(length, alpha_toggle, numeric_toggle, special_toggle, define_special, no_copy):
+    """
+    Generates a password configured by a set of options
+
+    Args:
+        length: desired password length
+        alpha_toggle: enables alphabet characters
+        numeric_toggle: enables numeric characters
+        special_toggle: enables special characters
+        define_special: alternative string of characters to use as special
+                        characters
+        no_copy: print to stdout instead of copying to clipboard
+    """
+
     password = ""
     while length > 0:
         sentinel = random.randint(1, 3)
